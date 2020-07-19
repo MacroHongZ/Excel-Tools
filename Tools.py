@@ -20,9 +20,9 @@ def merge_excel(pathes):
 	sheet = []
 	for filepath in pathes:
 		# sheet.append(pd.read_excel(filepath,header=2,converters = {u'学号':str}))
-		sheet.append(pd.read_excel(filepath))
+		sheet.append(pd.read_excel(filepath, dtype=str))
 	he = pd.concat(sheet)
-	he.to_excel("合并.xlsx",index=False)
+	he.to_excel("合并多簿.xlsx",index=False)
 	messagebox.showinfo('提示','合并完成')
 
 def merge_sheet(path):
@@ -30,14 +30,14 @@ def merge_sheet(path):
 	wb = xlrd.open_workbook(path)
 	sheets = wb.sheet_names()
 	for i in range(len(sheets)):
-		sheet.append(pd.read_excel(path,sheet_name=i))
+		sheet.append(pd.read_excel(path,sheet_name=i,dtype=str))
 	he = pd.concat(sheet)
-	he.to_excel("合并.xlsx",index=False)
+	he.to_excel("合并多表.xlsx",index=False)
 	messagebox.showinfo('提示','合并完成')
 
 def split_sheet(path):
 		global col
-		date = pd.read_excel(path,heder=0)
+		date = pd.read_excel(path,heder=0,dtype=str)
 		col = eval(col)-1
 		split_list = list(set(date.iloc[:,col]))
 		writer = pd.ExcelWriter("拆分.xlsx")
